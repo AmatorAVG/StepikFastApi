@@ -8,7 +8,7 @@ class User(db.Entity):
     id = PrimaryKey(int, auto=True)
     tg_ID = Required(int, unique=True)
     nick = Optional(str)
-    create_date = Required(datetime)
+    create_date = Required(datetime, default=datetime.now())
     wallet = Required('Wallet')
     sended_transactions = Set('Transaction', reverse='sender')
     received_transactions = Set('Transaction', reverse='receiver')
@@ -25,7 +25,7 @@ class Transaction(db.Entity):
     amount_btc_with_fee = Required(float)
     amount_btc_without_fee = Required(float)
     fee = Required(float)
-    date_of_transaction = Required(datetime)
+    date_of_transaction = Required(datetime, default=datetime.now())
     tx_hash = Required(str, unique=True)
 
 
