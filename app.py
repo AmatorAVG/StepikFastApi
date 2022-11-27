@@ -200,7 +200,7 @@ def get_transactions():
 @api.post('/create_transaction')
 @crud.db_session
 def create_transaction(transaction: pydantic_models.Create_Transaction):
-    return crud.create_transaction(sender=get_user_by_tg_id(transaction.tg_ID),
+    return crud.create_transaction(sender=crud.User.get(tg_ID=transaction.tg_ID),
                         amount_btc_without_fee=transaction.amount_btc_without_fee,
                         receiver_address=transaction.receiver_address,
                         testnet=True).to_dict()
